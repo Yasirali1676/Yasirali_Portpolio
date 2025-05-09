@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yasir Ali - Flutter Developer Portfolio</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6f34fe;
+            --secondary: #fca61f;
+            --dark: #121212;
+            --dark-secondary: #1e1e1e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* Navbar */
+        .navbar {
+            background-color: rgba(18, 18, 18, 0.9) !important;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand img {
+            height: 110px;
+        }
+        
+        .nav-link {
+            color: var(--light) !important;
+            margin: 0 10px;
+            position: relative;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            color: var(--secondary) !important;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--secondary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #5a2ad4;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(111, 52, 254, 0.3);
+        }
+        
+        .btn-outline-light {
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-light:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(248, 249, 250, 0.2);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-secondary) 100%);
+            padding-top: 100px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .highlight {
+            color: var(--secondary);
+        }
+        
+        .hero-img {
+            animation: float 6s ease-in-out infinite;
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* Sections */
+        section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .section-subtitle {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        /* Services */
+        .service-card {
+            background-color: var(--dark-secondary);
+            border-radius: 15px;
+            padding: 30px;
+            height: 100%;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+        
+        /* Skills */
+        .skill-card {
+            background-color: var(--dark-secondary);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .circular-progress {
+            position: relative;
+            height: 150px;
+            width: 150px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary) 0deg, #2d2d2d 0deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        .circular-progress::before {
+            content: "";
+            position: absolute;
+            height: 130px;
+            width: 130px;
+            border-radius: 50%;
+            background-color: var(--dark-secondary);
+        }
+        
+        .progress-value {
+            position: relative;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--light);
+        }
+        
+        /* Portfolio */
+        .portfolio-filter {
+            margin-bottom: 30px;
+        }
+        
+        .portfolio-filter button {
+            background: transparent;
+            border: none;
+            color: var(--gray);
+            font-weight: 600;
+            margin: 0 15px;
+            padding: 5px 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-filter button.active, 
+        .portfolio-filter button:hover {
+            color: var(--light);
+        }
+        
+        .portfolio-filter button::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--secondary);
+            transition: width 0.3s ease;
+        }
+        
+        .portfolio-filter button.active::after,
+        .portfolio-filter button:hover::after {
+            width: 100%;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .portfolio-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(111, 52, 254, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-item:hover .portfolio-img {
+            transform: scale(1.1);
+        }
+        
+        /* Testimonials */
+        .testimonial-card {
+            background-color: var(--dark-secondary);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 15px;
+        }
+        
+        .testimonial-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+        }
+        
+        .quote-icon {
+            font-size: 2rem;
+            color: var(--secondary);
+            opacity: 0.7;
+        }
+        
+        /* Contact */
+        .contact-form .form-control {
+            background-color: var(--dark-secondary);
+            border: 1px solid #333;
+            color: var(--light);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .contact-form .form-control:focus {
+            box-shadow: none;
+            border-color: var(--primary);
+            background-color: var(--dark-secondary);
+            color: var(--light);
+        }
+        
+        .contact-info {
+            background-color: var(--dark-secondary);
+            border-radius: 15px;
+            padding: 30px;
+            height: 100%;
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-right: 15px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-secondary);
+            padding: 50px 0 20px;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--dark);
+            color: var(--light);
+            font-size: 1.2rem;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary);
+            color: var(--light);
+            transform: translateY(-5px);
+        }
+        
+        .footer-link {
+            color: var(--gray);
+            text-decoration: none;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--secondary);
+        }
+        
+        /* Back to top */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--secondary);
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .portfolio-filter button {
+                margin: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="Yasir.Logo.png" alt="Yasir Ali Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <i class="bi bi-list"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#services">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#skills">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#portfolio">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+            </ul>
+            <a href="#contact" class="btn btn-primary ms-lg-3">Hire Me</a>
+        </div>
+    </div>
+</nav>
+    <!-- Hero Section -->
+    <section class="hero d-flex align-items-center" id="home">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+              <h1 class="text-white">Hi, I'm <span class="highlight">Yasir Ali</span></h1>
+              <h2 class="mb-4 text-light"><span id="typed-text"></span></h2>
+              <p class="lead mb-4 text-light">
+                Professional Mobile Application Developer with 6 months of experience and background in Computer System Engineering.
+                Specialized in developing iOS and Flutter applications with Objective-C and Dart.
+              </p>
+              <div class="d-flex flex-wrap gap-3">
+                <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                <a href="Yasir cv.pdf" class="btn btn-outline-light" download>Download CV</a>
+              </div>
+            </div>
+            <div class="col-lg-6 text-center" data-aos="fade-left">
+              <img src="./Yasri.pic.jpg" alt="Yasir Ali" class="img-fluid hero-img fixed-img">
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <style>
+      .hero {
+        background: #121212;
+        padding: 100px 0;
+      }
+      
+      .highlight {
+        color: #FCA61F;
+        font-weight: bold;
+      }
+      
+      .hero-img.fixed-img {
+        width: 400px;
+        max-width: 100%;
+        height: 600px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      }
+      </style>
+      
+
+    <!-- Services Section -->
+    <section id="services" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center" data-aos="fade-up">
+                    <span class="section-subtitle">What I Do</span>
+                    <h2 class="section-title">My Services</h2>
+                    <p class="text-muted">I develop applications that are scalable, efficient, and user-friendly.</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="bi bi-phone"></i>
+                        </div>
+                        <h3>Flutter Development</h3>
+                        <p class="text-muted">Architecting and designing scalable Flutter applications with efficient and reusable code in Dart.</p>
+                        <a href="#" class="text-primary text-decoration-none">Learn More <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="bi bi-code-slash"></i>
+                        </div>
+                        <h3>Mobile App Development</h3>
+                        <p class="text-muted">Developing iOS applications with Objective-C and creating cross-platform solutions with Flutter.</p>
+                        <a href="#" class="text-primary text-decoration-none">Learn More <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="bi bi-database"></i>
+                        </div>
+                        <h3>Backend Integration</h3>
+                        <p class="text-muted">Firebase integration including Storage, Databases, Functions, Authentication and API integrations.</p>
+                        <a href="#" class="text-primary text-decoration-none">Learn More <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-5 bg-dark-secondary">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <span class="section-subtitle">My Abilities</span>
+                    <h2 class="section-title mb-4">My Skills</h2>
+                    <p class="text-muted mb-4">With expertise in mobile development technologies and platforms, I can deliver high-quality solutions tailored to your requirements.</p>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <h5 class="mb-2">Flutter</h5>
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h5 class="mb-2">Dart</h5>
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h5 class="mb-2">Firebase</h5>
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h5 class="mb-2">Objective-C</h5>
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="skill-card">
+                                <div class="circular-progress" id="flutter-progress">
+                                    <span class="progress-value">0%</span>
+                                </div>
+                                <h4>Flutter</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="skill-card">
+                                <div class="circular-progress" id="dart-progress">
+                                    <span class="progress-value">0%</span>
+                                </div>
+                                <h4>Dart</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="skill-card">
+                                <div class="circular-progress" id="firebase-progress">
+                                    <span class="progress-value">0%</span>
+                                </div>
+                                <h4>Firebase</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="skill-card">
+                                <div class="circular-progress" id="objectivec-progress">
+                                    <span class="progress-value">0%</span>
+                                </div>
+                                <h4>Objective-C</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center" data-aos="fade-up">
+                    <span class="section-subtitle">My Work</span>
+                    <h2 class="section-title">Featured Projects</h2>
+                    <p class="text-muted">Here are some of my recent Flutter projects. Each one was carefully crafted to meet specific requirements.</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-filter text-center mb-5" data-aos="fade-up">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+                <button class="filter-btn" data-filter="utility">Utility Apps</button>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4 portfolio-item" data-aos="fade-up" data-filter="mobile">
+                    <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1636&q=80" alt="Weather App" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h4>Weather App</h4>
+                        <p>Flutter, API Integration</p>
+                        <a href="#" class="btn btn-outline-light mt-3">View Project</a>
+                    </div>
+                </div>
+                <div class="col-md-4 portfolio-item" data-aos="fade-up" data-aos-delay="100" data-filter="utility">
+                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80" alt="Chat App" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h4>Chat App</h4>
+                        <p>Flutter, Firebase</p>
+                        <a href="#" class="btn btn-outline-light mt-3">View Project</a>
+                    </div>
+                </div>
+                <div class="col-md-4 portfolio-item" data-aos="fade-up" data-aos-delay="200" data-filter="mobile">
+                    <img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Learning App" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h4>Flutter Learn App</h4>
+                        <p>Flutter, State Management</p>
+                        <a href="#" class="btn btn-outline-light mt-3">View Project</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Experience Section -->
+    <section id="experience" class="py-5 bg-dark-secondary">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center" data-aos="fade-up">
+                    <span class="section-subtitle">My Journey</span>
+                    <h2 class="section-title">Professional Experience</h2>
+                    <p class="text-muted">My professional journey and contributions in mobile application development.</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-8 mx-auto" data-aos="fade-up">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h4>Flutter Developer</h4>
+                            <span class="text-muted">Mar 2024 - Present</span>
+                            <ul class="mt-3">
+                                <li>Architecting and designing scalable Flutter applications</li>
+                                <li>Writing efficient and reusable code in Dart</li>
+                                <li>Conducting code reviews and providing feedback</li>
+                                <li>Creating and maintaining documentation</li>
+                                <li>Writing tests and ensuring application quality</li>
+                                <li>Optimizing performance for a smooth user experience</li>
+                                <li>Debugging and resolving issues for application stability</li>
+                                <li>Collaborating with cross functional teams and communicating effectively</li>
+                                <li>Staying updated with Flutter trends and suggesting improvements</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center" data-aos="fade-up">
+                    <span class="section-subtitle">Get In Touch</span>
+                    <h2 class="section-title">Contact Me</h2>
+                    <p class="text-muted">Have a mobile app project in mind or want to discuss potential opportunities? Feel free to reach out!</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <form action="https://formsubmit.co/yasirali0317ali@gmail.com" method="POST" class="contact-form">
+                        <!-- Disable CAPTCHA -->
+                        <input type="hidden" name="_captcha" value="false">
+                        
+                        <div class="mb-3">
+                            <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="subject" class="form-control" placeholder="Subject">
+                        </div>
+                        <div class="mb-3">
+                            <textarea name="message" class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                    
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="contact-info">
+                        <div class="d-flex align-items-start mb-4">
+                            <i class="bi bi-geo-alt contact-icon"></i>
+                            <div>
+                                <h5>Location</h5>
+                                <p class="text-muted mb-0">Charsadda, Pakistan</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-4">
+                            <i class="bi bi-envelope contact-icon"></i>
+                            <div>
+                                <h5>Email</h5>
+                                <p class="text-muted mb-0">yasirali0317ali@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-4">
+                            <i class="bi bi-phone contact-icon"></i>
+                            <div>
+                                <h5>Phone</h5>
+                                <p class="text-muted mb-0">+92-3179913601</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-4">
+                            <i class="bi bi-award contact-icon"></i>
+                            <div>
+                                <h5>Certificates</h5>
+                                <p class="text-muted mb-0">Flutter Development (S.M.I.T), Dart Language (Angela Yu), Flutter Internship (iPlexSoft Peshawar)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center mb-5">
+                    <h3 class="mb-4">Yasir Ali</h3>
+                    <div class="d-flex flex-wrap justify-content-center mb-4">
+                        <a href="#home" class="footer-link">Home</a>
+                        <a href="#services" class="footer-link">Services</a>
+                        <a href="#skills" class="footer-link">Skills</a>
+                        <a href="#portfolio" class="footer-link">Portfolio</a>
+                        <a href="#contact" class="footer-link">Contact</a>
+                    </div>
+                    <div class="social-links mb-4">
+                        <a href="https://www.linkedin.com/in/yasirali0317?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-icon">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/Yasirali1676" class="social-icon">
+                            <i class="bi bi-github"></i>
+                        </a>
+                        <a href="https://wa.me/qr/WXOMLS7ZRRM3I1" class="social-icon">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="text-center py-3 border-top border-secondary">
+                <p class="mb-0 text-muted">&copy; 2024 Yasir Ali. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Typed.js -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    
+    <script>
+        // Initialize AOS animation
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+        
+        // Typing effect for skills
+        var typed = new Typed("#typed-text", {
+            strings: ["I'm a Flutter Developer", "Mobile App Developer", "iOS Developer", "Firebase Expert"],
+            typeSpeed: 50,
+            backSpeed: 25,
+            backDelay: 2000,
+            loop: true
+        });
+        
+        // Circular progress animation
+        function animateProgress(elementId, endValue, color) {
+            let progressValue = 0;
+            let speed = 20;
+            let progress = setInterval(() => {
+                progressValue++;
+                let value = progressValue;
+                
+                // Update the circular progress
+                let progressElement = document.getElementById(elementId);
+                if (progressElement) {
+                    progressElement.style.background = `conic-gradient(${color} ${3.6 * value}deg, #2d2d2d 0deg)`;
+                    progressElement.querySelector('.progress-value').textContent = value + "%";
+                }
+                
+                if (progressValue >= endValue) {
+                    clearInterval(progress);
+                }
+            }, speed);
+        }
+        
+        // Animate progress bars when skills section is in view
+        function checkProgressAnimation() {
+            let skillsSection = document.getElementById('skills');
+            if (skillsSection) {
+                let position = skillsSection.getBoundingClientRect();
+                let windowHeight = window.innerHeight;
+                
+                // If skills section is in view
+                if (position.top < windowHeight && position.bottom >= 0) {
+                    // Only animate once
+                    if (!skillsSection.classList.contains('animated')) {
+                        skillsSection.classList.add('animated');
+                        animateProgress('flutter-progress', 85, '#6f34fe');
+                        animateProgress('dart-progress', 80, '#6f34fe');
+                        animateProgress('firebase-progress', 75, '#6f34fe');
+                        animateProgress('objectivec-progress', 70, '#6f34fe');
+                    }
+                }
+            }
+        }
+        
+        // Back to top button
+        window.addEventListener('scroll', function() {
+            // Show/hide back to top button
+            let backToTop = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+            
+            // Check if skills section is in view for animation
+            checkProgressAnimation();
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Portfolio filtering
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active button
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                const filterValue = this.getAttribute('data-filter');
+                const portfolioItems = document.querySelectorAll('.portfolio-item');
+                
+                portfolioItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-filter') === filterValue) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Initialize progress animation check on page load
+        window.addEventListener('load', checkProgressAnimation);
+    </script>
+</body>
+</html>
