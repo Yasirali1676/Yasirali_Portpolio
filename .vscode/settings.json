@@ -1,0 +1,7 @@
+{
+    "liveServer.settings.port": 5500,
+    "liveServer.settings.root": "/",
+    "liveServer.settings.CustomBrowser": "chrome",
+    "liveServer.settings.donotVerifyTags": true,
+    "liveServer.settings.file": "index.html"
+}
